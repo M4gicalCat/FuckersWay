@@ -63,7 +63,6 @@ const nextAction = (bf: string[], cache: Cache): Action | void => {
       bf[cache.readingPointer],
     )
   );
-  console.log('echo index', cache.readingPointer);
   if (cache.readingPointer >= bf.length) {
     clearInterval(cache.interval);
     return { type: 'end', value: null };
@@ -106,7 +105,7 @@ const nextAction = (bf: string[], cache: Cache): Action | void => {
 export const parse = (
   brainfuck: string,
   emit: (action: { type: string; value: any }, stop: () => void) => void,
-) => {
+): Promise<void> => {
   const cache: Cache = {
     array: [0],
     pointer: 0,
@@ -116,8 +115,11 @@ export const parse = (
   const bf = brainfuck.split('');
   firstParse(cache, bf);
   console.log(JSON.parse(JSON.stringify(cache)));
-  cache.interval = setInterval(() => {
-    const action = nextAction(bf, cache);
-    if (action) emit(action, () => clearInterval(cache.interval));
-  }, 500);
+  return new Promise(r => {
+    cache.interval = setInterval(() => {
+      const action = nextAction(bf, cache);
+      if (action?.type === 'end') r();
+      if (action) emit(action, () => clearInterval(cache.interval));
+    }, 500);
+  });
 };
