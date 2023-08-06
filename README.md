@@ -3,7 +3,7 @@
 - Have you ever tried writing brainfuck?
 - Have you ever got a headache?
 - Do you like playing video games?
-- Do you like resolving puzzles?
+- Do you like solving puzzles?
 
 If you answered "yes" to at least 3 of those 4 questions, you might want to play Fuckers' way.
 
@@ -28,3 +28,8 @@ Finally, open the index.html file in a web browser.
 That's it, you can play the game.
 
 Good luck!
+
+## Todo
+- Show the position of the current executed character
+- Use other indexes to display something
+- Graphical level builder

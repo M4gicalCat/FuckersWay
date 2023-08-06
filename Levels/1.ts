@@ -1,4 +1,5 @@
-import { Level, mapParser } from './index.js';
+import { mapParser } from './index.js';
+import { Level } from './levels';
 
 export const level: Level = mapParser({
   w: 10,

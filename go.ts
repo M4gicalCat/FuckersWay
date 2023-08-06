@@ -1,6 +1,6 @@
-import { Level } from './Levels';
 import { parse } from './brainfuck/parser.js';
-import { draw } from './draw.js';
+import { draw, gameObject, initDragMovement } from './draw.js';
+import { Level } from './Levels/levels';
 
 const canMove = (
   x: number,
@@ -35,7 +35,7 @@ export const go = async (
       y: level.spawn.y,
     },
   };
-
+  initDragMovement(ctx.canvas, () => draw(ctx, level, params));
   await parse(brainfuck, (action, stop) => {
     switch (action.type) {
       case 'increment':

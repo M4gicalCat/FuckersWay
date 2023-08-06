@@ -1,5 +1,5 @@
 import { go } from './go.js';
-import { draw } from './draw.js';
+import { draw, initDragMovement } from './draw.js';
 
 window.onload = async () => {
   const URLParams = new URLSearchParams(window.location.search);
@@ -9,6 +9,8 @@ window.onload = async () => {
   const fuckersWay = document.getElementById('FuckersWay') as HTMLCanvasElement;
   const ctx = fuckersWay.getContext('2d') as CanvasRenderingContext2D;
   const bf = document.getElementById('brainfuck') as HTMLTextAreaElement;
+
+  initDragMovement(ctx.canvas, () => draw(ctx, level, { player: level.spawn }));
 
   bf.value = JSON.parse(localStorage.getItem('bf') ?? '{}')?.[level.name] ?? '';
 

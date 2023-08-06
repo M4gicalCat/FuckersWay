@@ -119,7 +119,11 @@ export const parse = (
     cache.interval = setInterval(() => {
       const action = nextAction(bf, cache);
       if (action?.type === 'end') r();
-      if (action) emit(action, () => clearInterval(cache.interval));
+      if (action)
+        emit(action, () => {
+          clearInterval(cache.interval);
+          r();
+        });
     }, 500);
   });
 };
